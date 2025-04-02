@@ -17,7 +17,7 @@ jobs:
     uses: BT-Demos/MyApp/.cloudbees/workflows/deploy-artifact.yaml
     with:
       artifactName: GHA App
-      artifactVersion: 2.0.0
+      artifactVersion: 1.0.0
       environment: ${{ inputs.environment }}
   CBPApp:
     uses: BT-Demos/MyApp/.cloudbees/workflows/deploy-artifact.yaml
