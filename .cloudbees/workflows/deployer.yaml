@@ -16,12 +16,12 @@ jobs:
   GHApp:
     uses: BT-Demos/MyApp/.cloudbees/workflows/deploy-artifact.yaml
     with:
-      artifactName: GHApp
+      artifactName: GHA App
       artifactVersion: 2.0.0
       environment: ${{ inputs.environment }}
   CBPApp:
     uses: BT-Demos/MyApp/.cloudbees/workflows/deploy-artifact.yaml
     with:
-      artifactName: CBPApp
+      artifactName: CBP App
       artifactVersion: 1.0.0
       environment: ${{ inputs.environment }}
