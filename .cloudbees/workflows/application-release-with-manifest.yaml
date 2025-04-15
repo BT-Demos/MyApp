@@ -10,26 +10,48 @@ on:
 jobs:
   pre-prod:
     steps:
-      - name: Deploy GHAPP
+      - name: Deploy CBP APP to Preprod
         kind: deploy
-        if: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].deploy }}
+        if: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].deploy }}
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
-          version: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].version }}
-          url: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].url }}
-          digest: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].digest }}
+          version: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].version }}
+          url: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].url }}
+          digest: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].digest }}
+          target-environment: pre-prod
+          name: CBP App
+
+      - name: Deploy GHA APP to Preprod
+        kind: deploy
+        if: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].deploy }}
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          version: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].version }}
+          url: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].url }}
+          digest: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].digest }}
           target-environment: pre-prod
           name: GHA App
   prod:
     needs: pre-prod
     steps:
-      - name: Deploy MyAppAPIs
+      - name: Deploy CBP APP to Preprod
         kind: deploy
-        if: ${{ fromJSON(inputs.manifest)['MyAppAPIs']['MyAppAPIs'].deploy }}
+        if: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].deploy }}
         uses: cloudbees-io/register-deployed-artifact@v1
         with:
-          version: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].version }}
-          url: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].url }}
-          digest: ${{ fromJSON(inputs.manifest)['GHA App']['GHA-Component2'].digest }}
+          version: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].version }}
+          url: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].url }}
+          digest: ${{ fromJSON(inputs.manifest)['CBP-Component1']['CBP App'].digest }}
+          target-environment: prod
+          name: CBP App
+
+      - name: Deploy GHA APP to Prod
+        kind: deploy
+        if: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].deploy }}
+        uses: cloudbees-io/register-deployed-artifact@v1
+        with:
+          version: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].version }}
+          url: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].url }}
+          digest: ${{ fromJSON(inputs.manifest)['GHA-Component2']['GHA App'].digest }}
           target-environment: prod
           name: GHA App
